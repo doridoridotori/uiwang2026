@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>깨비장터 - 청년정책 & 청년공간</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1a1a1a;
+    --surface:#242424;
+    --card:#2c2c2c;
+    --red:#e04040;
+    --red-glow:rgba(224,64,64,0.15);
+    --red-dark:#b83030;
+    --gold:#d4a535;
+    --gold-dim:#a07828;
+    --text:#f0ece4;
+    --text-dim:#9a9590;
+    --line:#3a3632;
+    --green:#4a9a6a;
+    --blue:#4a7ab0;
+    --shadow:rgba(0,0,0,0.3);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:#111;
+    color:var(--text);
+    font-family:'Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+    min-height:100vh;
+    background:var(--bg);
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* ── 처마 장식 ── */
+  .roof{
+    height:22px;
+    background:repeating-linear-gradient(90deg,var(--red) 0px,var(--red) 28px,#1a1a1a 28px,#1a1a1a 32px);
+    border-bottom:3px solid var(--red-dark);
+    position:relative;
+  }
+
+  /* ── 메인 헤더 ── */
+  .header{
+    background:
+      radial-gradient(ellipse at 50% 100%, var(--red-glow), transparent 70%),
+      var(--bg);
+    text-align:center;
+    padding:28px 24px 18px;
+    position:relative;
+  }
+  .header .label{
+    display:inline-block;
+    background:var(--red);
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+    padding:4px 14px;
+    border-radius:12px;
+    letter-spacing:1px;
+  }
+
+  /* 도깨비 인라인 SVG */
+  .goblin-header{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:8px;
+    margin:14px 0 4px;
+  }
+
+  .header h1{
+    font-family:'Noto Serif KR',serif;
+    font-weight:900;
+    font-size:38px;
+    color:var(--red);
+    text-shadow:0 0 30px rgba(224,64,64,0.3);
+  }
+  .header .sub{
+    font-size:13px;
+    color:var(--text-dim);
+    line-height:1.7;
+    margin-top:6px;
+  }
+  .header .sub b{color:var(--red);}
+
+  .divider{
+    height:1px;
+    background:linear-gradient(90deg,transparent,var(--line),transparent);
+    margin:0 20px;
+  }
+
+  /* ── 메인 3개 배너 카드 ── */
+  .home-cards{padding:18px 20px 10px;}
+  .home-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:20px 18px;
+    margin-bottom:14px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    box-shadow:0 4px 16px var(--shadow);
+    transition:all .2s ease;
+    -webkit-tap-highlight-color:transparent;
+    position:relative;
+    overflow:hidden;
+  }
+  .home-card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;bottom:0;
+    width:5px;
+  }
+  .home-card:nth-child(1)::before{background:var(--red);}
+  .home-card:nth-child(2)::before{background:var(--green);}
+  .home-card:nth-child(3)::before{background:var(--gold);}
+  .home-card:active{transform:scale(0.97);}
+
+  .home-card .icon-circle{
+    flex:0 0 52px;height:52px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+  }
+  .home-card:nth-child(1) .icon-circle{background:var(--red-glow);}
+  .home-card:nth-child(2) .icon-circle{background:rgba(74,154,106,0.12);}
+  .home-card:nth-child(3) .icon-circle{background:rgba(212,165,53,0.12);}
+
+  .home-card .card-txt{flex:1;}
+  .home-card .card-txt .num{
+    display:inline-block;
+    font-size:10px;
+    font-weight:700;
+    border-radius:6px;
+    padding:2px 8px;
+    margin-bottom:3px;
+    color:#fff;
+  }
+  .home-card:nth-child(1) .num{background:var(--red);}
+  .home-card:nth-child(2) .num{background:var(--green);}
+  .home-card:nth-child(3) .num{background:var(--gold-dim);}
+  .home-card .card-txt h2{
+    font-family:'Noto Serif KR',serif;
+    font-size:20px;
+    font-weight:900;
+    margin:2px 0 3px;
+    color:var(--text);
+  }
+  .home-card .card-txt p{font-size:12px;color:var(--text-dim);}
+  .home-card .arrow{flex:0 0 20px;font-size:18px;color:var(--text-dim);}
+
+  /* 도깨비 장식 */
+  .goblin-deco{
+    text-align:center;
+    padding:4px 0 8px;
+    opacity:0.85;
+  }
+
+  footer{
+    text-align:center;
+    font-size:11px;
+    color:var(--text-dim);
+    padding:10px 20px 28px;
+    opacity:0.6;
+  }
+
+  /* ── 하위 페이지 ── */
+  .page{
+    display:none;
+    padding:0 0 30px;
+    animation:slideIn .25s ease;
+  }
+  .page.active{display:block;}
+  @keyframes slideIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+
+  .page-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:var(--surface);
+  }
+  .back-btn{
+    width:34px;height:34px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--card);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:16px;
+    color:var(--text);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .page-header h2{
+    font-family:'Noto Serif KR',serif;
+    font-size:17px;
+    color:var(--text);
+  }
+  .page-content{padding:16px 20px;}
+
+  /* 준비중 */
+  .soon{
+    border:2px dashed var(--line);
+    border-radius:18px;
+    padding:40px 20px;
+    text-align:center;
+    color:var(--text-dim);
+    background:var(--surface);
+  }
+  .soon .big{font-size:40px;margin-bottom:10px;}
+  .soon p{font-size:13px;line-height:1.7;}
+
+  /* 공간 카드 */
+  .space-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:14px;
+    box-shadow:0 2px 10px var(--shadow);
+    position:relative;
+  }
+  .space-card .tag{
+    display:inline-block;
+    font-size:10px;
+    font-weight:700;
+    padding:3px 10px;
+    border-radius:10px;
+    margin-bottom:8px;
+    color:#fff;
+  }
+  .tag-red{background:var(--red);}
+  .tag-blue{background:var(--blue);}
+  .tag-green{background:var(--green);}
+  .tag-gold{background:var(--gold-dim);}
+  .tag-purple{background:#8a5cb8;}
+
+  .space-card h3{
+    font-family:'Noto Serif KR',serif;
+    font-size:16px;
+    margin-bottom:10px;
+    color:var(--red);
+  }
+  .row{
+    display:flex;
+    gap:8px;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:4px;
+  }
+  .row .k{
+    flex:0 0 48px;
+    font-weight:700;
+    color:var(--gold);
+  }
+  .row .v{flex:1;color:var(--text);}
+  .space-card a{
+    color:var(--red);
+    text-decoration:none;
+    font-weight:700;
+    word-break:break-all;
+  }
+  .space-card .goblin-mini{
+    position:absolute;
+    top:12px;right:14px;
+    opacity:0.5;
+  }
+  .facility-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-top:6px;
+  }
+  .facility-tags span{
+    background:var(--card);
+    border:1px solid var(--line);
+    font-size:11px;
+    padding:3px 8px;
+    border-radius:8px;
+    color:var(--text-dim);
+  }
+
+  /* 채널 카드 */
+  .channel{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:12px;
+    text-decoration:none;
+    color:var(--text);
+    box-shadow:0 2px 10px var(--shadow);
+  }
+  .channel .ic{
+    flex:0 0 44px;height:44px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    color:#fff;
+  }
+  .ic.kakao{background:#f5d24a;color:#3c1e1e;}
+  .ic.insta{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af);}
+  .ic.gov{background:var(--blue);}
+  .channel .txt strong{display:block;font-size:14px;margin-bottom:2px;}
+  .channel .txt span{font-size:12px;color:var(--text-dim);}
+
+  .section-note{
+    font-size:12px;
+    color:var(--text-dim);
+    text-align:center;
+    margin-bottom:16px;
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="roof"></div>
+
+  <!-- ====== 홈 화면 ====== -->
+  <div id="home">
+    <div class="header">
+      <div class="label">2026 의왕시 청년의 날</div>
+      <div class="goblin-header">
+        <!-- 왼쪽 도깨비 -->
+        <svg width="48" height="56" viewBox="0 0 48 56" fill="none">
+          <ellipse cx="24" cy="38" rx="16" ry="16" fill="#4a90d9"/>
+          <ellipse cx="24" cy="38" rx="12" ry="13" fill="#5aa0e8"/>
+          <circle cx="18" cy="35" r="3.5" fill="#fff"/>
+          <circle cx="30" cy="35" r="3.5" fill="#fff"/>
+          <circle cx="19" cy="35" r="2" fill="#222"/>
+          <circle cx="31" cy="35" r="2" fill="#222"/>
+          <ellipse cx="24" cy="42" rx="4" ry="2" fill="#3a70b0"/>
+          <path d="M20 42 Q24 46 28 42" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M14 26 Q18 16 22 24" stroke="#e04040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M34 26 Q30 16 26 24" stroke="#e04040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <rect x="14" y="22" rx="4" width="20" height="6" fill="#333" opacity="0.6"/>
+          <circle cx="24" cy="8" r="5" fill="#d4a535"/>
+          <rect x="22" y="12" width="4" height="8" fill="#d4a535" rx="1"/>
+          <rect x="21" y="5" width="6" height="6" rx="1" fill="none" stroke="#a07828" stroke-width="1"/>
+        </svg>
+        <h1>깨비장터</h1>
+        <!-- 오른쪽 도깨비 -->
+        <svg width="48" height="56" viewBox="0 0 48 56" fill="none">
+          <ellipse cx="24" cy="38" rx="16" ry="16" fill="#e06060"/>
+          <ellipse cx="24" cy="38" rx="12" ry="13" fill="#f07070"/>
+          <circle cx="18" cy="35" r="3.5" fill="#fff"/>
+          <circle cx="30" cy="35" r="3.5" fill="#fff"/>
+          <circle cx="19" cy="35.5" r="2" fill="#222"/>
+          <circle cx="31" cy="35.5" r="2" fill="#222"/>
+          <path d="M20 43 Q24 47 28 43" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M14 26 Q17 14 21 24" stroke="#d4a535" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M34 26 Q31 14 27 24" stroke="#d4a535" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="13" cy="40" rx="5" ry="6" fill="#c05050" opacity="0.5"/>
+          <ellipse cx="35" cy="40" rx="5" ry="6" fill="#c05050" opacity="0.5"/>
+          <circle cx="14" cy="38" r="3" fill="#ff9999" opacity="0.4"/>
+          <circle cx="34" cy="38" r="3" fill="#ff9999" opacity="0.4"/>
+          <text x="24" y="11" text-anchor="middle" font-size="14">福</text>
+        </svg>
+      </div>
+      <div class="sub">
+        <b>청년정책</b>도 알고, <b>청년공간</b>도 찾고,<br>
+        오늘 만난 정보를 다시 확인해보세요!
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="home-cards">
+      <div class="home-card" onclick="goPage('policy')">
+        <div class="icon-circle">🍊</div>
+        <div class="card-txt">
+          <span class="num">1</span>
+          <h2>꿀팁청과</h2>
+          <p>청년정책 안내 &amp; 퀴즈</p>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="home-card" onclick="goPage('space')">
+        <div class="icon-circle">🏠</div>
+        <div class="card-txt">
+          <span class="num">2</span>
+          <h2>깨비복덕방</h2>
+          <p>청년공간 안내 &amp; 비석치기</p>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="home-card" onclick="goPage('info')">
+        <div class="icon-circle">🔍</div>
+        <div class="card-txt">
+          <span class="num">3</span>
+          <h2>정보 찾는 법</h2>
+          <p>카카오채널 · 인스타 · 온통청년</p>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+    </div>
+
+    <!-- 하단 도깨비 장식 -->
+    <div class="goblin-deco">
+      <svg width="120" height="36" viewBox="0 0 120 36" fill="none">
+        <circle cx="20" cy="22" r="10" fill="#4a90d9" opacity="0.3"/>
+        <circle cx="20" cy="22" r="7" fill="#5aa0e8" opacity="0.3"/>
+        <circle cx="17" cy="20" r="1.5" fill="#fff" opacity="0.5"/>
+        <circle cx="23" cy="20" r="1.5" fill="#fff" opacity="0.5"/>
+        <path d="M17 25 Q20 28 23 25" stroke="#fff" stroke-width="1" fill="none" opacity="0.4"/>
+        <text x="60" y="26" text-anchor="middle" font-size="11" fill="#9a9590" font-family="Noto Serif KR">· · ·</text>
+        <circle cx="100" cy="22" r="10" fill="#e06060" opacity="0.3"/>
+        <circle cx="100" cy="22" r="7" fill="#f07070" opacity="0.3"/>
+        <circle cx="97" cy="20" r="1.5" fill="#fff" opacity="0.5"/>
+        <circle cx="103" cy="20" r="1.5" fill="#fff" opacity="0.5"/>
+        <path d="M97 25 Q100 28 103 25" stroke="#fff" stroke-width="1" fill="none" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <footer>2026 의왕시 청년의 날 · 깨비장터<br>㈜프롤로그 사업 1팀</footer>
+  </div>
+
+  <!-- ====== 1. 청년정책 ====== -->
+  <div class="page" id="policy">
+    <div class="page-header">
+      <div class="back-btn" onclick="goHome()">←</div>
+      <h2>🍊 꿀팁청과 · 청년정책</h2>
+    </div>
+    <div class="page-content">
+      <div class="soon">
+        <div class="big">🍊</div>
+        <p>청년정책 정보를<br>열심히 준비하고 있어요!<br><br>조금만 기다려주세요 ✨</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 2. 청년공간 ====== -->
+  <div class="page" id="space">
+    <div class="page-header">
+      <div class="back-btn" onclick="goHome()">←</div>
+      <h2>🏠 깨비복덕방 · 청년공간</h2>
+    </div>
+    <div class="page-content">
+      <p class="section-note">의왕시에서 청년이 장기적으로<br>이용할 수 있는 공간을 모았어요 🏘️</p>
+
+      <!-- 청년발전소 -->
+      <div class="space-card">
+        <svg class="goblin-mini" width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="16" r="10" fill="#4a90d9" opacity="0.3"/>
+          <circle cx="11" cy="14" r="1.5" fill="#fff" opacity="0.5"/>
+          <circle cx="17" cy="14" r="1.5" fill="#fff" opacity="0.5"/>
+          <path d="M11 19 Q14 22 17 19" stroke="#fff" stroke-width="1" fill="none" opacity="0.4"/>
+        </svg>
+        <span class="tag tag-red">거점형 청년공간</span>
+        <h3>의왕 청년발전소 포일센터</h3>
+        <div class="row"><div class="k">주소</div><div class="v">경기 의왕시 안양판교로 82<br>(포일어울림센터 4층)</div></div>
+        <div class="row"><div class="k">대상</div><div class="v">19~39세 청년</div></div>
+        <div class="row"><div class="k">시간</div><div class="v">평일 09:00~21:00<br>토·일 09:00~18:00 / 공휴일 휴무</div></div>
+        <div class="row"><div class="k">이용</div><div class="v">스터디룸 1일 최대 6시간</div></div>
+        <div class="row"><div class="k">링크</div><div class="v"><a href="https://www.uiwang.go.kr/UWKORWEL1601" target="_blank">의왕시청 안내페이지 →</a></div></div>
+      </div>
+
+      <!-- 포일어울림도서관 -->
+      <div class="space-card">
+        <svg class="goblin-mini" width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="16" r="10" fill="#e06060" opacity="0.3"/>
+          <circle cx="11" cy="14" r="1.5" fill="#fff" opacity="0.5"/>
+          <circle cx="17" cy="14" r="1.5" fill="#fff" opacity="0.5"/>
+          <path d="M11 19 Q14 22 17 19" stroke="#fff" stroke-width="1" fill="none" opacity="0.4"/>
+        </svg>
+        <span class="tag tag-blue">스터디 · 열람</span>
+        <h3>포일어울림도서관</h3>
+        <div class="row"><div class="k">주소</div><div class="v">경기도 의왕시 안양판교로 82<br>(포일어울림센터 내, 청년발전소와 같은 건물)</div></div>
+        <div class="row"><div class="k">시간</div><div class="v">평일 09:00~22:00<br>주말 09:00~18:00</div></div>
+        <div class="row"><div class="k">링크</div><div class="v"><a href="https://www.uwlib.or.kr/poil/index.do" target="_blank">포일어울림도서관 홈페이지 →</a></div></div>
+      </div>
+
+      <!-- 내손도서관 -->
+      <div class="space-card">
+        <svg class="goblin-mini" width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="16" r="10" fill="#d4a535" opacity="0.3"/>
+          <circle cx="11" cy="14" r="1.5" fill="#fff" opacity="0.5"/>
+          <circle cx="17" cy="14" r="1.5" fill="#fff" opacity="0.5"/>
+          <path d="M11 19 Q14 22 17 19" stroke="#fff" stroke-width="1" fill="none" opacity="0.4"/>
+        </svg>
+        <span class="tag tag-green">스터디 · 열람</span>
+        <h3>의왕시 내손도서관</h3>
+        <div class="row"><div class="k">주소</div><div class="v">경기도 의왕시 복지로 109</div></div>
+        <div class="row"><div class="k">시간</div><div class="v">자료실: 평일 09:00~22:00 (유아자료실 18:00까지)<br>주말 09:00~18:00<br>열람실: 07:00~23:00</div></div>
+        <div class="row"><div class="k">링크</div><div class="v"><a href="http://www.uwlib.or.kr/" target="_blank">의왕시 도서관 홈페이지 →</a></div></div>
+      </div>
+
+      <!-- 꿈누리카페 -->
+      <div class="space-card">
+        <svg class="goblin-mini" width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="16" r="10" fill="#8a5cb8" opacity="0.3"/>
+          <circle cx="11" cy="14" r="1.5" fill="#fff" opacity="0.5"/>
+          <circle cx="17" cy="14" r="1.5" fill="#fff" opacity="0.5"/>
+          <path d="M11 19 Q14 22 17 19" stroke="#fff" stroke-width="1" fill="none" opacity="0.4"/>
+        </svg>
+        <span class="tag tag-purple">놀이 · 여가</span>
+        <h3>의왕 꿈누리카페 고천점</h3>
+        <div class="row"><div class="k">주소</div><div class="v">경기 의왕시 문화공원로 33<br>(의왕시청소년수련관 1층)</div></div>
+        <div class="row"><div class="k">대상</div><div class="v">11세 이상 ~ 24세 이하</div></div>
+        <div class="row"><div class="k">시간</div><div class="v">화~금 12:00~20:00<br>토 10:00~18:00<br>매주 월·일 휴관, 공휴일 미운영</div></div>
+        <div class="row"><div class="k">시설</div><div class="v">
+          <div class="facility-tags">
+            <span>🎤 코인노래방</span>
+            <span>🖥️ PC</span>
+            <span>🎯 다트</span>
+            <span>🏓 탁구대</span>
+            <span>🎮 PS · 닌텐도</span>
+            <span>📽️ 멀티미디어실</span>
+            <span>🏠 다락방</span>
+          </div>
+        </div></div>
+        <div class="row"><div class="k">링크</div><div class="v"><a href="https://www.uyf.or.kr/main/700" target="_blank">꿈누리카페 안내페이지 →</a></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====== 3. 정보 찾는 법 ====== -->
+  <div class="page" id="info">
+    <div class="page-header">
+      <div class="back-btn" onclick="goHome()">←</div>
+      <h2>🔍 더 알고 싶다면?</h2>
+    </div>
+    <div class="page-content">
+      <p class="section-note">청년 소식, 놓치지 마세요! 👀</p>
+
+      <a class="channel" href="https://open.kakao.com/o/gBxh0Hxh" target="_blank">
+        <div class="ic kakao">💬</div>
+        <div class="txt">
+          <strong>의왕 청년성장프로젝트 카카오채널</strong>
+          <span>구독하면 청년 프로젝트 소식 가장 먼저 확인!</span>
+        </div>
+      </a>
+
+      <a class="channel" href="https://www.instagram.com/uiwang_youth" target="_blank">
+        <div class="ic insta">📷</div>
+        <div class="txt">
+          <strong>@uiwang_youth</strong>
+          <span>의왕 청년성장프로젝트 인스타그램</span>
+        </div>
+      </a>
+
+      <a class="channel" href="https://www.youthcenter.go.kr" target="_blank">
+        <div class="ic gov">🏛️</div>
+        <div class="txt">
+          <strong>온통청년</strong>
+          <span>전국 청년정책 3천여 개 통합검색 · AI챗봇 상담</span>
+        </div>
+      </a>
+
+      <!-- 하단 도깨비 -->
+      <div class="goblin-deco" style="margin-top:12px;">
+        <svg width="80" height="44" viewBox="0 0 80 44" fill="none">
+          <circle cx="40" cy="26" r="14" fill="#4a90d9" opacity="0.2"/>
+          <circle cx="40" cy="26" r="10" fill="#5aa0e8" opacity="0.2"/>
+          <circle cx="36" cy="24" r="2" fill="#fff" opacity="0.4"/>
+          <circle cx="44" cy="24" r="2" fill="#fff" opacity="0.4"/>
+          <path d="M35 30 Q40 34 45 30" stroke="#fff" stroke-width="1.2" fill="none" opacity="0.35"/>
+          <path d="M32 18 Q36 10 39 18" stroke="var(--red)" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <path d="M48 18 Q44 10 41 18" stroke="var(--red)" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <text x="40" y="42" text-anchor="middle" font-size="8" fill="#9a9590" opacity="0.6">깨비가 응원해요!</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function goPage(id){
+    document.getElementById('home').style.display='none';
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+  }
+  function goHome(){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('home').style.display='block';
+    window.scrollTo(0,0);
+  }
+</script>
+
+</body>
+</html>
