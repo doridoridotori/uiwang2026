@@ -78,6 +78,15 @@ footer{text-align:center;font-size:11px;color:var(--text-dim);padding:10px 20px 
 .ic.kakao{background:#f5d24a;color:#3c1e1e}.ic.insta{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af)}.ic.gov{background:var(--blue)}
 .channel .txt strong{display:block;font-size:14px;margin-bottom:2px}
 .channel .txt span{font-size:12px;color:var(--text-dim)}
+
+/* 응원 문구 - 아이콘/텍스트 분리로 겹침 방지 */
+.goblin-cheer{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:22px;padding-top:6px}
+.goblin-cheer span{font-family:'Jua',sans-serif;font-size:15px;color:var(--green);letter-spacing:0.3px}
+
+/* 포스터 톤 디바이더 (제목 아래 문양 구분선) */
+.mini-divider{display:flex;align-items:center;gap:10px;margin:2px 0 16px}
+.mini-divider::before,.mini-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent)}
+.mini-divider .emblem{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--gold-dim)}
 </style>
 </head>
 <body>
@@ -130,6 +139,7 @@ footer{text-align:center;font-size:11px;color:var(--text-dim);padding:10px 20px 
 <div class="page-header"><div class="back-btn" onclick="goHome()">←</div><h2>🍊 꿀팁청과 · 청년정책</h2></div>
 <div class="page-content">
 <p class="section-note">의왕시 청년이 활용할 수 있는<br>정책을 분야별로 모았어요 🍊</p>
+<div class="mini-divider"><span class="emblem">✦</span></div>
 
 <div class="cat-tabs">
 <div class="cat-tab active" onclick="showCat('job')">💼 일자리</div>
@@ -300,6 +310,7 @@ footer{text-align:center;font-size:11px;color:var(--text-dim);padding:10px 20px 
 <div class="page-header"><div class="back-btn" onclick="goHome()">←</div><h2>🏠 깨비복덕방 · 청년공간</h2></div>
 <div class="page-content">
 <p class="section-note">의왕시에서 청년이 장기적으로<br>이용할 수 있는 공간을 모았어요 🏘️</p>
+<div class="mini-divider"><span class="emblem">✦</span></div>
 
 <div class="space-card">
 <svg class="goblin-mini" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="15" r="10" fill="#4ab0d9"/><circle cx="11" cy="14" r="1.6" fill="#fff"/><circle cx="17" cy="14" r="1.6" fill="#fff"/><circle cx="11.3" cy="14.3" r="0.9" fill="#22303a"/><circle cx="17.3" cy="14.3" r="0.9" fill="#22303a"/><path d="M11 18 Q14 21 17 18" stroke="#22303a" stroke-width="1" fill="none" stroke-linecap="round"/></svg>
@@ -349,11 +360,15 @@ footer{text-align:center;font-size:11px;color:var(--text-dim);padding:10px 20px 
 <div class="page-header"><div class="back-btn" onclick="goHome()">←</div><h2>🔍 더 알고 싶다면?</h2></div>
 <div class="page-content">
 <p class="section-note">청년 소식, 놓치지 마세요! 👀</p>
+<div class="mini-divider"><span class="emblem">✦</span></div>
 <a class="channel" href="https://open.kakao.com/o/gBxh0Hxh" target="_blank"><div class="ic kakao">💬</div><div class="txt"><strong>의왕 청년성장프로젝트 카카오채널</strong><span>구독하면 청년 프로젝트 소식 가장 먼저 확인!</span></div></a>
 <a class="channel" href="https://www.instagram.com/uiwang_youth" target="_blank"><div class="ic insta">📷</div><div class="txt"><strong>@uiwang_youth</strong><span>의왕 청년성장프로젝트 인스타그램</span></div></a>
 <a class="channel" href="https://www.youthcenter.go.kr/" target="_blank"><div class="ic gov">🏛️</div><div class="txt"><strong>온통청년</strong><span>나라에서 만든 청년정책 통합 사이트</span></div></a>
 <a class="channel" href="https://www.uiwang.go.kr/UWKORWEL1604" target="_blank"><div class="ic gov" style="background:var(--red)">🏛️</div><div class="txt"><strong>의왕시청 청년정책 안내</strong><span>상시 확인 가능한 의왕시 홈페이지</span></div></a>
-<div class="goblin-deco" style="margin-top:12px"><svg width="90" height="46" viewBox="0 0 90 46" fill="none"><circle cx="45" cy="24" r="14" fill="#4ab0d9"/><circle cx="40" cy="22" r="2.2" fill="#fff"/><circle cx="50" cy="22" r="2.2" fill="#fff"/><circle cx="40.5" cy="22.5" r="1.2" fill="#22303a"/><circle cx="50.5" cy="22.5" r="1.2" fill="#22303a"/><path d="M39 28 Q45 32 51 28" stroke="#22303a" stroke-width="1.3" fill="none" stroke-linecap="round"/><text x="45" y="44" text-anchor="middle" font-size="11" fill="var(--green)" font-weight="700" font-family="Noto Sans KR">깨비가 응원해요!</text></svg></div>
+<div class="goblin-cheer">
+<svg width="54" height="54" viewBox="0 0 54 54" fill="none"><circle cx="27" cy="27" r="21" fill="#4ab0d9"/><circle cx="19" cy="24" r="3.1" fill="#fff"/><circle cx="35" cy="24" r="3.1" fill="#fff"/><circle cx="19.6" cy="24.6" r="1.7" fill="#22303a"/><circle cx="35.6" cy="24.6" r="1.7" fill="#22303a"/><circle cx="15" cy="30" r="2.8" fill="#ff9db5" opacity="0.6"/><circle cx="39" cy="30" r="2.8" fill="#ff9db5" opacity="0.6"/><path d="M17 33 Q27 39 37 33" stroke="#22303a" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+<span>깨비가 응원해요!</span>
+</div>
 </div>
 </div>
 
